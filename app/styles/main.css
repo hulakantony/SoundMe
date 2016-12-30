@@ -1,0 +1,69 @@
+*{
+	box-sizing: border-box;
+}
+body, html {
+	padding: 0;
+	margin: 0;
+}
+h1{
+	margin: 0;
+	font: 24px/1 Arial,sans-serif;
+}
+#header{
+	background: rgba(0,0,0,.4);
+	color: #fff;
+	margin: 0;
+	padding: 20px;
+}
+.genres-list {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: row;
+	list-style: none;
+	font: 10px/1 Arial,sans-serif;
+	justify-content: space-around;
+	background: #000;
+	padding: 10px 0 0 0;
+	flex-wrap: wrap;
+
+}
+.genres-list li a{
+	color: #fff;
+	text-decoration: none;
+	text-transform: capitalize;
+	border: 1px solid #fff;
+	border-radius: 3px;
+	padding: 5px;
+	margin: 0 0 10px 0;
+	display: block;
+}
+.active{
+	font-weight: bold;
+	font-size: 16px;
+}
+.songs-list {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: space-around;
+	padding: 50px 0;
+}
+.song-item{
+	width: 250px;
+	height: 250px;
+	text-align: center;
+	border: 1px solid #000;
+	padding: 10px;
+	margin: 0 0 10px 0;
+	font-size: 12px;
+	overflow: hidden;
+}
+.song-item h3 {
+	margin: 0;
+
+}
+.song-item p {
+	margin: 0;
+
+} 
