@@ -1,5 +1,15 @@
-import { debounce } from '../helpers/';
-import { SONGS_LOADING, SONGS_FETCH_SUCCESS, FETCH_ERROR, CLIENT_ID, ROOT_URL, GET_GENRES, GET_SONGS_BY_GENRE, GET_MORE_SONGS } from '../consts/';
+import { SONGS_LOADING, 
+	SONGS_FETCH_SUCCESS, 
+	FETCH_ERROR, 
+	CLIENT_ID, 
+	ROOT_URL,
+	GET_GENRES, 
+	GET_SONGS_BY_GENRE, 
+	GET_MORE_SONGS,
+	MORE_SONGS_LOADING,
+	GET_PLAYER_SOURCES,
+	GET_NEXT_SONG,
+	GET_PREV_SONG } from '../consts/';
 
 export function dataHasErrored(bool) {
     return {
@@ -57,7 +67,7 @@ export function getSongsData() {
 
 export function getGenreSongs(genre) {
 	return (dispatch) => {
-		fetch(`${ROOT_URL}linked_partitioning=1&${CLIENT_ID}&tags=${genre}&offset=50&limit=100`)
+		fetch(`${ROOT_URL}linked_partitioning=1&${CLIENT_ID}&tags=${genre}&offset=0&limit=50`)
 		.then((response) => {
 			if (!response.ok) {
                 throw Error(response.statusText);
@@ -79,20 +89,56 @@ export function moreSongs(plusSongs) {
 	}
 }
 
+export function moreSongsIsLoading(bool) {
+    return {
+        type: MORE_SONGS_LOADING,
+        isLoading: bool
+    };
+}
+
 export function getMoreSongs() {
 	return (dispatch, getState) => {
-		const url = store.getState().songsByGenre.next_url;
+		const url = getState().songsByGenre.next_href;	
+		dispatch(moreSongsIsLoading(true))	
 		fetch(url)
 		.then((response) => {
 			if (!response.ok) {
                 throw Error(response.statusText);
-            }                           
+            } 
+            setTimeout(()=>{
+               dispatch(moreSongsIsLoading(false))
+            }, 2000)
+            
             return response;
 		})
 		.then((response) => response.json())
 		.then((songs) => {
-            dispatch(moreSongs(genreSongs))           
+            dispatch(moreSongs(songs))           
         })
         .catch(() => dispatch(dataHasErrored(true)));
 	}
 }
+
+export function getSongData(song) {
+	return {
+		type: GET_PLAYER_SOURCES,		
+		audioUrl: song.stream_url,
+		imageUrl: song.artwork_url,
+		songName: song.title,
+		id: song.id,
+	}
+}
+
+/*export function getPrevSong(id) {
+	return {
+		type: GET_PREV_SONG,
+		id
+	}
+}
+export function getNextSong(id) {
+	return {
+		type: GET_NEXT_SONG,
+		id
+	}
+}*/
+

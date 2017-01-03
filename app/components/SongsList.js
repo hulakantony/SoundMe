@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getGenreSongs } from '../action/'
+import { getGenreSongs, getSongData } from '../action/'
 import Song from './Song';
+import Spinner from './Spinner';
 
 
 export default class SongsList extends Component {
@@ -9,31 +10,44 @@ export default class SongsList extends Component {
 		const { getGenreSongs } = this.props;
 		getGenreSongs('rock')
 	}
+	songToStore(e, song){
+		e.preventDefault()
+		const { getSongData } = this.props;
+		getSongData(song);
+	}
 	render(){
-		const { songsByGenre } = this.props;
-		const songs = songsByGenre.collection;
-		return (
+		const { songsByGenre, moreLoading, nowPlayingId } = this.props;
+		const songs = songsByGenre.collection;		
+		return (			
 			<div className='songs-list'>
+				
 				{
-					songs && songs.map(el => {
-						return <Song key={el.id} song={el} />
+					songs && songs.map((el,index) => {
+						return <Song 
+							nowPlaying={el.id === nowPlayingId} 
+							songToStore={(e, song) => this.songToStore(e, song)} 
+							key={el.id} 
+							song={el} />
 					})
 				}
+				{moreLoading && <Spinner />}
 			</div>
 		);
 	}
 }
 
-const mapStateToProps = (state) => { 
-	console.log(123, state)
+const mapStateToProps = (state) => { 	
   return {
-    songsByGenre: state.songsByGenre,    
+    songsByGenre: state.songsByGenre, 
+    moreLoading: state.moreLoading,
+    nowPlayingId: state.player.id,   
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getGenreSongs: (genre) => dispatch(getGenreSongs(genre)),
+    getSongData: (song) => dispatch(getSongData(song)),
   }
 }
 
