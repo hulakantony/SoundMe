@@ -1,0 +1,48 @@
+#player{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 3;
+	width: 100%;
+	display: flex;
+	background: rgba(150,150,150,.9);
+	justify-content: center;
+}
+
+.player-image-wrap{
+	width: 32px;
+	height: 32px;
+}
+.player-image-wrap img{
+	width: 100%;
+	height: auto;
+	display: block;
+	margin: 0 auto;
+}
+.song-name-wrap{	
+	width: 170px;
+	font: bold 12px/1 Arial,sans-serif;	
+	color: #fff;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	padding: 10px 5px;
+}
+
+.arrow-but{
+	width: 32px;
+	height: 32px;
+	display: block;
+	text-decoration: none;
+}
+.but-next {
+	background: url('http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/3d-transparent-glass-icons-arrows/006764-3d-transparent-glass-icon-arrows-arrowhead-solid-right.png');
+	background-size: cover;
+	margin: 0 0 0 20px;
+}
+.but-prev {
+	background: url('http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-arrows/006763-3d-transparent-glass-icon-arrows-arrowhead-solid-left.png');
+	background-size: cover;	
+	margin: 0 20px 0 0;
+}
+

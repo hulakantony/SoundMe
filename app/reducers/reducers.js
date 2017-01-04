@@ -71,18 +71,16 @@ export function player(state = playerInitial, action) {
                 songName: action.songName,
                 playing: true,
                 id: action.id
-            };
-        /*case GET_NEXT_SONG:
-            let copy = state.slice();
-            const { id } = action;
-            let nextSong;
-            copy.forEach((el, i, arr) => {
-                if(el.id === id){
-                    nextSong = arr[i+1];
-                }
-            })
-            return {...state,
-                }*/
+            };       
+        default: 
+            return state;
+    }
+}
+
+export function auth_token(state = null, action) {
+    switch (action.type) {
+        case AUTH_USER:
+            return action.token;
         default: 
             return state;
     }

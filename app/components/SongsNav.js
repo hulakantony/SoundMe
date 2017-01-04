@@ -10,7 +10,7 @@ export default function SongsNav ({genres, changeGenre}) {
 					const genreName = el.toLowerCase().replace(/\s/ig, '-');
 					return (
 						<li key={index}>
-							<Link onClick={() => changeGenre(genreName)} to={genreName} activeClassName='active'>{el}</Link>
+							<Link to={genreName} activeClassName='active'>{el}</Link>
 						</li>	
 					)
 				})

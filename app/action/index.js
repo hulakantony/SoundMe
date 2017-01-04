@@ -9,7 +9,11 @@ import { SONGS_LOADING,
 	MORE_SONGS_LOADING,
 	GET_PLAYER_SOURCES,
 	GET_NEXT_SONG,
-	GET_PREV_SONG } from '../consts/';
+	GET_PREV_SONG,
+	AUTH_USER } from '../consts/';
+
+
+import SC from 'soundcloud';
 
 export function dataHasErrored(bool) {
     return {
@@ -129,16 +133,24 @@ export function getSongData(song) {
 	}
 }
 
-/*export function getPrevSong(id) {
+export function authUser(token, shouldShowStream) {
 	return {
-		type: GET_PREV_SONG,
-		id
+		type: AUTH_USER,
+		token
 	}
 }
-export function getNextSong(id) {
-	return {
-		type: GET_NEXT_SONG,
-		id
-	}
-}*/
 
+export function loginUser(shouldShowStream = true) {
+  return dispatch => {
+    SC.initialize({
+      client_id: 'f4323c6f7c0cd73d2d786a2b1cdae80c',
+      redirect_uri: 'http://localhost:8080/api/callback',
+    });
+
+    SC.connect().then(authObj => {
+      Cookies.set(COOKIE_PATH, authObj.oauth_token);
+      dispatch(authUser(authObj.oauth_token, shouldShowStream));
+    })
+    .catch(err => { throw err; });
+  };
+}

@@ -3,21 +3,29 @@ import { connect } from 'react-redux';
 import { getGenreSongs, getSongData } from '../action/'
 import Song from './Song';
 import Spinner from './Spinner';
+import { browserHistory } from 'react-router'
 
 
-export default class SongsList extends Component {
+export default class SongsList extends Component {	
 	componentDidMount(){
 		const { getGenreSongs } = this.props;
-		getGenreSongs('rock')
+		const pathName = this.props.location.pathname.slice(1);		
+		getGenreSongs(pathName)		
+	}	
+	componentWillReceiveProps(nextProps){
+		if (this.props.location.pathname !== nextProps.location.pathname) {
+			const { getGenreSongs } = this.props;
+    		getGenreSongs(nextProps.location.pathname)
+    	}
 	}
 	songToStore(e, song){
 		e.preventDefault()
 		const { getSongData } = this.props;
 		getSongData(song);
-	}
+	}	 
 	render(){
 		const { songsByGenre, moreLoading, nowPlayingId } = this.props;
-		const songs = songsByGenre.collection;		
+		const songs = songsByGenre.collection;				
 		return (			
 			<div className='songs-list'>
 				

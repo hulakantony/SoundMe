@@ -36,7 +36,7 @@ class Home extends Component {
     }   
   }  
   render() {    
-    const { isLoading, genres, songs } = this.props;
+    const { isLoading, genres, songs } = this.props;    
     if (!isLoading) {
       return(
         <div>
