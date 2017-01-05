@@ -3,15 +3,17 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
+    'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
     './app/index'
   ],
   devtool: 'eval',
   output: {
-    path: __dirname,
-    filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: 'http://localhost:8080/',
+    filename: '/js/[name].js',
+     // path: __dirname,
+     // filename: 'bundle.js',
+     // publicPath: '/static/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin()
@@ -31,5 +33,12 @@ module.exports = {
         loader: 'style-loader!css-loader'
       }
     ]
-  }
+  },
+  devServer: {
+    host: '0.0.0.0',
+    proxy: {
+      '/api/*': 'http://localhost:8081',
+    },
+    historyApiFallback: true
+  },
 };

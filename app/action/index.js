@@ -71,11 +71,12 @@ export function getSongsData() {
 
 export function getGenreSongs(genre) {
 	return (dispatch) => {
+		dispatch({type: 'GENRE_SONGS_LOADING'});
 		fetch(`${ROOT_URL}linked_partitioning=1&${CLIENT_ID}&tags=${genre}&offset=0&limit=50`)
 		.then((response) => {
 			if (!response.ok) {
                 throw Error(response.statusText);
-            }                           
+            }                                     
             return response;
 		})
 		.then((response) => response.json())
@@ -129,7 +130,7 @@ export function getSongData(song) {
 		audioUrl: song.stream_url,
 		imageUrl: song.artwork_url,
 		songName: song.title,
-		id: song.id,
+		id: song.id,		
 	}
 }
 
@@ -148,7 +149,7 @@ export function loginUser(shouldShowStream = true) {
     });
 
     SC.connect().then(authObj => {
-      Cookies.set(COOKIE_PATH, authObj.oauth_token);
+      window.localStorage.setItem('login_sound', authObj.oauth_token);
       dispatch(authUser(authObj.oauth_token, shouldShowStream));
     })
     .catch(err => { throw err; });

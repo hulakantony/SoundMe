@@ -37,15 +37,7 @@ class Player extends Component {
 				return;
 			}
 		})
-	}	
-	onPlayHandler(){		
-		const { audio } = this.refs;
-		const { nowPlaying } = this.state;
-		nowPlaying ? audio.pause() : audio.play()
-		this.setState({
-			nowPlaying: !nowPlaying,
-		})
-	}
+	}		
 	onPause(){			
 		this.setState({
 			nowPlaying: false,
@@ -63,14 +55,13 @@ class Player extends Component {
 			return (
 				<div id="player">
 					<a href='#' className='arrow-but but-prev' onClick={(e) => this.playPrevSong(e)}></a>
-					<audio onPlay={()=>this.onPlay()} onPause={()=>this.onPause()} onEnded={()=>this.playNextSong()} ref="audio" src={`${audioUrl}?${CLIENT_ID}`} controls autoPlay></audio>
+					<audio onPlay={()=>this.onPlay()} onPause={()=>this.onPause()} onEnded={(e)=>this.playNextSong(e)} ref="audio" src={`${audioUrl}?${CLIENT_ID}`} controls autoPlay></audio>
 					<div className='player-image-wrap'>
 						<img src={imageUrl ? imageUrl : DEFAULT_IMG} />
 					</div>
 					<div className='song-name-wrap'>
 						{songName}
-					</div>				
-					<button onClick={()=>this.onPlayHandler()}>{nowPlaying ? 'pause' : 'play'}</button>
+					</div>					
 					<a href='#' className='arrow-but but-next' onClick={(e)=>this.playNextSong(e)}></a>
 				</div>
 			)

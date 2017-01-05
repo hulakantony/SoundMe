@@ -4,7 +4,7 @@ import { getSongsData, getGenreSongs, getMoreSongs } from '../action/'
 
 import SongsNav from '../components/SongsNav';
 import Header from '../components/Header';
-import Player from '../components/Player'
+import Player from './Player'
 
 import '../styles/main.css'
 
@@ -20,7 +20,7 @@ class Home extends Component {
     document.addEventListener('scroll', pagin);
   }
   componentWillUnmount(){
-    document.removeEventListener('scroll', this.handleScroll);
+    document.removeEventListener('scroll', pagin);
   }
   changeGenre(genre) {
     const { getGenreSongs } = this.props;
@@ -30,8 +30,8 @@ class Home extends Component {
     const { getMoreSongs } = this.props;
     let pageHeight = document.documentElement.clientHeight;
     let scroll = window.pageYOffset;
-    let height = document.body.offsetHeight;
-    if (height === pageHeight + scroll) {      
+    let fullHeight = document.body.offsetHeight;
+    if (fullHeight === pageHeight + scroll) {      
       getMoreSongs()
     }   
   }  

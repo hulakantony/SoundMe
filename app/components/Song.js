@@ -9,7 +9,7 @@ export default function Song ({song, songToStore, nowPlaying}) {
 				{nowPlaying && <div className='darkness'></div>}
 				<img src={image? image : DEFAULT_IMG} />
 				<div className='cover'>
-					<a href='#' className='play-button' onClick={(e)=>songToStore(e, song)}></a>
+					{!nowPlaying && <a href='#' className='play-button' onClick={(e)=>songToStore(e, song)}></a>}
 				</div>
 			</div>
 			<h4>{title}</h4>						

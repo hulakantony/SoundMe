@@ -8,15 +8,19 @@
 }
 body, html {
 	padding: 0;
-	margin: 0;
+	margin: 0;	
+}
+body{
+	background: rgba(0,0,0,.1);	
 }
 h1{
 	margin: 0;
 	font: 30px/1 Arial,sans-serif;
 	float: left;
 }
+
 #header{
-	background: rgba(0,0,0,.4);
+	background: rgba(0,0,0,.6);
 	color: #fff;
 	margin: 0;
 	padding: 20px;
@@ -56,8 +60,8 @@ h1{
 	flex-direction: row;
 	justify-content: space-around;
 	padding: 30px 50px 100px 50px;
-	position: relative;
-	background: rgba(0,0,0,.1)
+	position: relative;	
+	background: transparent;
 }
 .song-item{
 	width: 220px;

@@ -5,7 +5,8 @@ import { SONGS_LOADING,
     GET_SONGS_BY_GENRE, 
     GET_MORE_SONGS,
     MORE_SONGS_LOADING,
-    GET_PLAYER_SOURCES } from '../consts/';
+    GET_PLAYER_SOURCES,
+    AUTH_USER } from '../consts/';
 
 export function hasErrored(state = false, action) {
     switch (action.type) {
@@ -45,10 +46,17 @@ export function genres(state = [], action) {
     }
 }
 
+const songByGenreInitial = {
+    collection: [],
+    next_href: '',
+    songLoading: false,
+}
 export function songsByGenre(state = {}, action) {
     switch (action.type) {
+        case 'GENRE_SONGS_LOADING':
+            return {...state, songLoading: true};
         case GET_SONGS_BY_GENRE:            
-            return action.songs;
+            return {...state, collection: action.songs.collection, next_href: action.songs.next_href , songLoading: false};
         case GET_MORE_SONGS:           
             return {...state, collection: state.collection.concat(action.plusSongs.collection), next_href: action.plusSongs.next_href};
         default:
@@ -71,7 +79,7 @@ export function player(state = playerInitial, action) {
                 songName: action.songName,
                 playing: true,
                 id: action.id
-            };       
+            };
         default: 
             return state;
     }

@@ -5,7 +5,7 @@
 	z-index: 3;
 	width: 100%;
 	display: flex;
-	background: rgba(150,150,150,.9);
+	background: rgba(150,130,130,.9);
 	justify-content: center;
 }
 
@@ -20,7 +20,7 @@
 	margin: 0 auto;
 }
 .song-name-wrap{	
-	width: 170px;
+	width: 150px;
 	font: bold 12px/1 Arial,sans-serif;	
 	color: #fff;
 	text-overflow: ellipsis;
