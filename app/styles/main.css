@@ -129,8 +129,8 @@ h1{
 .cover .play-button{
 	display: block;
 	position: absolute;
-	background: url(/play.png) no-repeat;
-	background-size: cover;
+	background: url('http://ru.seaicons.com/wp-content/uploads/2015/10/Play-1-Disabled-icon.png') no-repeat;
+	background-size: contain;
 	width: 50px;
 	height: 50px;
 	top: calc(50% - 25px);
