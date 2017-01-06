@@ -60,9 +60,10 @@ export function getSongsData() {
             	let genres = new Set();
             	songs.forEach(el => {            		
             		if(el.genre){
-            			genres.add(el.genre);
+            			genres.add(el.genre.toLowerCase().trim());
             		}
             	})
+            	genres.add('rock');
             	dispatch(genreList(genres));
             })
             .catch(() => dispatch(dataHasErrored(true)));
