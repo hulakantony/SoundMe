@@ -12,3 +12,4 @@ export const DEFAULT_IMG = 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9
 export const GET_PREV_SONG = 'GET_PREV_SONG';
 export const GET_NEXT_SONG = 'GET_NEXT_SONG';
 export const AUTH_USER = 'AUTH_USER';
+export const GET_SEARCH_VALUE = 'GET_SEARCH_VALUE';
