@@ -133,15 +133,21 @@ export function getSongData(song) {
 		id: song.id,		
 	}
 }
-
-export function authUser(token, shouldShowStream) {
+export function getUserData(token){
 	return {
 		type: AUTH_USER,
 		token
 	}
 }
+export function authUser(accessToken) {	
+	return dispatch => {
+		fetch(`//api.soundcloud.com/me?oauth_token=${accessToken}`)
+		.then(response => response.json())
+		.then(token => dispatch(getUserData(token)))
+	}
+}
 
-export function loginUser(shouldShowStream = true) {
+export function loginUser() {
   return dispatch => {
     SC.initialize({
       client_id: 'f4323c6f7c0cd73d2d786a2b1cdae80c',
@@ -150,8 +156,26 @@ export function loginUser(shouldShowStream = true) {
 
     SC.connect().then(authObj => {
       window.localStorage.setItem('login_sound', authObj.oauth_token);
-      dispatch(authUser(authObj.oauth_token, shouldShowStream));
+      dispatch(authUser(authObj.oauth_token));
     })
     .catch(err => { throw err; });
   };
+}
+
+export function initialAuth() {
+	return dispatch => {
+		const accessToken = window.localStorage.getItem('login_sound');		
+		if(accessToken){
+			dispatch(authUser(accessToken));
+		} else {
+			return null;
+		}
+	}
+}
+
+export function logoutUser() {
+	return dispatch => {
+		window.localStorage.removeItem('login_sound');
+		dispatch(getUserData(null))
+	}
 }
