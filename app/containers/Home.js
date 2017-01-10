@@ -16,7 +16,7 @@ class Home extends Component {
     getSongsData();
     const pagin = debounce(()=>{
       this.handleScroll()
-    }, 500)
+    }, 1000)
     document.addEventListener('scroll', pagin);
   }
   componentWillUnmount(){

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getGenreSongs, getSongData } from '../action/'
-import Song from '../components/Song';
-import Spinner from '../components/Spinner';
+import Song from './Song';
+import Spinner from './Spinner';
 import { browserHistory } from 'react-router'
 
 
@@ -14,8 +14,8 @@ export default class SongsList extends Component {
 	}	
 	componentWillReceiveProps(nextProps){
 		if (this.props.location.pathname !== nextProps.location.pathname) {
-			const { getGenreSongs } = this.props;			
-    		getGenreSongs(nextProps.location.pathname.slice(1))
+			const { getGenreSongs } = this.props;
+    		getGenreSongs(nextProps.location.pathname)
     	}
 	}
 	songToStore(e, song){
@@ -23,22 +23,25 @@ export default class SongsList extends Component {
 		const { getSongData } = this.props;
 		getSongData(song);
 	}	
+	pauseSongHandler(e) {
+		e.preventDefault();
+		const { pauseSong } = this.props;
+		pauseSong();
+	}
 	render(){
-		const { songsByGenre, moreLoading, nowPlayingId } = this.props;
-		const { songLoading } = songsByGenre;
+		const { songsByGenre, moreLoading, nowPlaying, nowPlayingId } = this.props;
 		const songs = songsByGenre.collection;				
 		return (			
 			<div className='songs-list'>
 				
 				{
-					!songLoading ?
 					songs && songs.map((el,index) => {
 						return <Song 
 							nowPlaying={el.id === nowPlayingId} 
 							songToStore={(e, song) => this.songToStore(e, song)} 							
 							key={el.id} 
 							song={el} />
-					}) : <Spinner />
+					})
 				}
 				{moreLoading && <Spinner />}
 			</div>
