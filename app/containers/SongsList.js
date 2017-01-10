@@ -9,13 +9,16 @@ import { browserHistory } from 'react-router'
 export default class SongsList extends Component {	
 	componentDidMount(){
 		const { getGenreSongs } = this.props;
-		const pathName = this.props.location.pathname.slice(1);		
+		let filter = new RegExp(/\//g);
+		const pathName = this.props.location.pathname.replace(filter, '');
+		console.log(pathName)		
 		getGenreSongs(pathName)		
 	}	
 	componentWillReceiveProps(nextProps){
+		let filter = new RegExp(/\//g);
 		if (this.props.location.pathname !== nextProps.location.pathname) {
 			const { getGenreSongs } = this.props;			
-    		getGenreSongs(nextProps.location.pathname.slice(1))
+    		getGenreSongs(nextProps.location.pathname.replace(filter, ''))
     	}
 	}
 	songToStore(e, song){
